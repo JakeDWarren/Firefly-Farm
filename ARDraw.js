@@ -5,10 +5,6 @@ var camera, scene, renderer, geometry, material, texture;
 var Emblem, EmblemGroup;
 var tracker;
 var onRenderFcts= [];
-// var planePixels = [];
-// var plane = [];
-// var planeGeometry = new THREE.Group();
-// var planeGeometry;
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
 
@@ -118,14 +114,6 @@ function init() {
       )
     })
 
-  //Drawing plane
-  // var drawGeometry = new THREE.PlaneGeometry( 5, 3, 0 );
-  // var drawMaterial = new THREE.MeshBasicMaterial( {color: 0xffffff} );
-  // var drawplane = new THREE.Mesh( drawGeometry, drawMaterial );
-  // drawplane.position.set(3,0,2);
-  // drawplane.rotation.x = - 1.5;
-  // scene.add( drawplane );
-
   //Brush size button
   var brushSizeGeometry = new THREE.PlaneGeometry( 1, 0.5, 0 );
   var brushSizeMaterial = new THREE.MeshBasicMaterial( {color: 0x0E1E3A} );
@@ -144,7 +132,7 @@ function init() {
   brushColour.rotation.x = - 1.5;
   scene.add( brushColour );
 
-  // each square
+  //Pixel Plane for drawing
   var planeW = 55; // pixels
   var planeH = 35; // pixels
   var numW = 0.05; // how many wide (50*50 = 2500 pixels wide)
@@ -152,9 +140,6 @@ function init() {
   var planeGeometry = new THREE.PlaneGeometry( planeW*numW, planeH*numH, planeW, planeH );
   var planeMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff } );
   var plane = new THREE.Mesh( planeGeometry, planeMaterial );
-  // planePixels = planeGeometry;
-  // console.log(planePixels);
-  // console.log(plane)
   plane.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 0, 0 ) );
   plane.position.set(2,0,1.5);
   plane.rotation.x = - 1.5;
@@ -162,16 +147,16 @@ function init() {
 
 }
 
+//Find centre coordinate of colour blob for X & Y coordinates
 function isInsideRect(x, y, rect) {
         return rect.x <= x && x <= rect.x + rect.width &&
             rect.y <= y && y <= rect.y + rect.height;
 } 
 
+//Record and map mouse coordinated on mouse move
 function onMouseMove( event ) {
 
-	// calculate mouse position in normalized device coordinates
-	// (-1 to +1) for both components
-
+	//calculate mouse position in normalized device coordinates (-1 to +1) for both components
   mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
@@ -189,7 +174,7 @@ onRenderFcts.push(function(){
   //Tracking.js coorinates
   tracker.on('track', function(event) {
     event.data.forEach(function(rect) {
-          if (rect.color === 'Green') {
+          if (rect.color === 'green') {
             console.log(rect.x, rect.y)
           }
           else if (rect.color === 'cyan') {
@@ -197,12 +182,14 @@ onRenderFcts.push(function(){
           }
   })})
 
-  // update the picking ray with the camera and mouse position
+  //Update the picking ray with the camera and mouse position
 	raycaster.setFromCamera( mouse, camera );
 
-	// calculate objects intersecting the picking ray
+	//Calculate objects intersecting the picking ray
 	var intersects = raycaster.intersectObjects( scene.children );
+
   console.log(intersects.length);
+
 	for ( var i = 0; i < intersects.length; i++ ) {
 
 		intersects[ i ].object.material.color.set( 0xff0000 );
@@ -213,20 +200,22 @@ onRenderFcts.push(function(){
   renderer.render( scene, camera );
 })
 
-// run the rendering loop
+//Run the rendering loop
 var lastTimeMsec= null
 requestAnimationFrame(function animate(nowMsec){
-  // keep looping
+  //Keep looping
   requestAnimationFrame( animate );
-  // measure time
+  //Measure time
   lastTimeMsec	= lastTimeMsec || nowMsec-1000/60
   var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec)
   lastTimeMsec	= nowMsec
-  // call each update function
+  //Call each update function
   onRenderFcts.forEach(function(onRenderFct){
     onRenderFct(deltaMsec/1000, nowMsec/1000)
   })
 })
 
+//Call Initalise function
 init();
+//Listen for mouse location
 window.addEventListener( 'mousemove', onMouseMove, false );
