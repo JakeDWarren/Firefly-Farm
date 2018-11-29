@@ -4,13 +4,15 @@
     <title>ARDraw</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
-    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    <link rel="stylesheet" href="style.css">
   </head>
 
 
 
   <body>
-
+    <div class="video-container">
+      <video id="video" preload autoplay loop muted></video>
+    </div>
   </body>
 
   <!-- Three.js library -->
@@ -24,6 +26,9 @@
 
   <!-- Material Loader -->
   <script src="js/MTLLoader.js"></script>
+
+  <!-- Tracking.js library for drawing from led input-->
+  <script src="js/tracking.js"></script>
 
   <!-- ARDraw.js is the main code containing AR script and content -->
   <script src="ARDraw.js"></script>

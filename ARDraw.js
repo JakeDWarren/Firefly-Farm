@@ -3,12 +3,25 @@
 //////////////////////////////////////////////////////////////////////////////////
 var camera, scene, renderer, geometry, material, texture;
 var Emblem, EmblemGroup;
+var tracker;
 var onRenderFcts= [];
+// var planePixels = [];
+// var plane = [];
+// var planeGeometry = new THREE.Group();
+// var planeGeometry;
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
 
 //////////////////////////////////////////////////////////////////////////////////
 //		Initialise
 //////////////////////////////////////////////////////////////////////////////////
 function init() {
+
+  var video = arToolkitSource;
+
+  tracker = new tracking.ColorTracker(['magenta', 'cyan']);
+
+  tracking.track('#video', tracker, { camera: true });
 
 // Initialise AR base scene and rendering preferences
 
@@ -16,7 +29,7 @@ function init() {
   scene = new THREE.Scene();
 
   // Create a camera
-  camera = new THREE.Camera();
+  camera = new THREE.PerspectiveCamera();
   scene.add(camera);
 
   // Create a WebGL renderer and add prefernces
@@ -106,28 +119,61 @@ function init() {
     })
 
   //Drawing plane
-  var drawGeometry = new THREE.PlaneGeometry( 5, 3, 0 );
-  var drawMaterial = new THREE.MeshBasicMaterial( {color: 0xffffff} );
-  var drawplane = new THREE.Mesh( drawGeometry, drawMaterial );
-  drawplane.position.set(3,0,2);
-  drawplane.rotation.x = - 1.5;
-  scene.add( drawplane );
+  // var drawGeometry = new THREE.PlaneGeometry( 5, 3, 0 );
+  // var drawMaterial = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+  // var drawplane = new THREE.Mesh( drawGeometry, drawMaterial );
+  // drawplane.position.set(3,0,2);
+  // drawplane.rotation.x = - 1.5;
+  // scene.add( drawplane );
 
   //Brush size button
   var brushSizeGeometry = new THREE.PlaneGeometry( 1, 0.5, 0 );
   var brushSizeMaterial = new THREE.MeshBasicMaterial( {color: 0x0E1E3A} );
-  var brushsize = new THREE.Mesh( brushSizeGeometry, brushSizeMaterial );
-  brushsize.position.set(1,0,0);
-  brushsize.rotation.x = - 1.5;
-  scene.add( brushsize );
+  var brushSize = new THREE.Mesh( brushSizeGeometry, brushSizeMaterial );
+  brushSize.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 0, 0 ) );
+  brushSize.position.set(1.5,0,0);
+  brushSize.rotation.x = - 1.5;
+  scene.add( brushSize );
 
   //Brush colour button
   var brushColourGeometry = new THREE.PlaneGeometry( 1, 0.5, 0 );
   var brushColourMaterial = new THREE.MeshBasicMaterial( {color: 0x0E1E3A} );
   var brushColour = new THREE.Mesh( brushColourGeometry, brushColourMaterial );
-  brushColour.position.set(2.5,0,0);
+  brushColour.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 0, 0 ) );
+  brushColour.position.set(3,0,0);
   brushColour.rotation.x = - 1.5;
   scene.add( brushColour );
+
+  // each square
+  var planeW = 55; // pixels
+  var planeH = 35; // pixels
+  var numW = 0.05; // how many wide (50*50 = 2500 pixels wide)
+  var numH = 0.05; // how many tall (50*50 = 2500 pixels tall)
+  var planeGeometry = new THREE.PlaneGeometry( planeW*numW, planeH*numH, planeW, planeH );
+  var planeMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+  var plane = new THREE.Mesh( planeGeometry, planeMaterial );
+  // planePixels = planeGeometry;
+  // console.log(planePixels);
+  // console.log(plane)
+  plane.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 0, 0 ) );
+  plane.position.set(2,0,1.5);
+  plane.rotation.x = - 1.5;
+  scene.add(plane);
+
+}
+
+function isInsideRect(x, y, rect) {
+        return rect.x <= x && x <= rect.x + rect.width &&
+            rect.y <= y && y <= rect.y + rect.height;
+} 
+
+function onMouseMove( event ) {
+
+	// calculate mouse position in normalized device coordinates
+	// (-1 to +1) for both components
+
+  mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
 }
 
@@ -139,6 +185,30 @@ onRenderFcts.push(function(){
 
   //Rotate Emblem on spot
   EmblemGroup.rotation.y += 0.02;
+
+  //Tracking.js coorinates
+  tracker.on('track', function(event) {
+    event.data.forEach(function(rect) {
+          if (rect.color === 'Green') {
+            console.log(rect.x, rect.y)
+          }
+          else if (rect.color === 'cyan') {
+            console.log("Detected")
+          }
+  })})
+
+  // update the picking ray with the camera and mouse position
+	raycaster.setFromCamera( mouse, camera );
+
+	// calculate objects intersecting the picking ray
+	var intersects = raycaster.intersectObjects( scene.children );
+  console.log(intersects.length);
+	for ( var i = 0; i < intersects.length; i++ ) {
+
+		intersects[ i ].object.material.color.set( 0xff0000 );
+    console.log("colour changed");
+
+	}
 
   renderer.render( scene, camera );
 })
@@ -159,3 +229,4 @@ requestAnimationFrame(function animate(nowMsec){
 })
 
 init();
+window.addEventListener( 'mousemove', onMouseMove, false );
