@@ -5,9 +5,7 @@ html,body {
 
 
 canvas{
-  position: relative;
-  height 100%;
-  width: auto;
+  position:fixed;
 }
 
 #video {
