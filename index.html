@@ -1,42 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>ARDraw</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="style.css">
-  </head>
+<head>
+  <title>ARDraw</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="video-container">
+    <!-- <video id="video" preload autoplay loop muted playsinline></video> -->
+    <!-- <video id="videos" preload autoplay loop muted playsinline></video> -->
+  </div>
+  <div class="level">
+    <p id="level"></p>
+  </div>
+  <div>
+    <button id="fire">Fire</button>
+    <button id="reset">Reset</button>
+  </div>
+  <div class="dot-container">
+    <span class="dot"></span>
+  </div>
+</body>
+
+<!-- Three.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/98/three.js"></script>
+
+<!-- Scipt to normalise refernces to getUserMedia across browsers -->
+<!-- <script>
+window.onload = function() {
+navigator.getUserMedia = (navigator.getUserMedia ||
+navigator.webkitGetUserMedia ||
+navigator.mozGetUserMedia ||
+navigator.msGetUserMedia);
+}
+</script> -->
+
+<!-- ---------------- Custom Shader Code ------------------------ -->
+<script id="vertexShader" type="x-shader/x-vertex">
+varying vec3 vNormal;
+void main()
+{
+  vNormal = normalize( normalMatrix * normal );
+  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+}
+</script>
+
+<!-- fragment shader a.k.a. pixel shader -->
+<script id="fragmentShader" type="x-shader/x-vertex">
+varying vec3 vNormal;
+void main()
+{
+  float intensity = pow( 0.08 - dot( vNormal, vec3( 0.0, 0.0, 1.0 ) ), 2.5 );
+  gl_FragColor = vec4(0.99, 0.97, 0.82,1.0) * intensity;
+}
+</script>
+<!-- ----------------------------------------------------------- -->
+
+<!-- AR.js library -->
+<script src="js/ar.js"></script>
+
+<!-- Object Loader -->
+<script src="js/OBJLoader.js"></script>
+
+<!-- Material Loader -->
+<script src="js/MTLLoader.js"></script>
+
+<!-- Tracking.js library for drawing from led input-->
+<script src="js/tracking.js"></script>
+
+<!-- OrbitControls.js used for controlling view of scene via touch/click-->
+<script src="js/OrbitControls.js"></script>
+
+<!-- DeviceOrientationControls.js used for condrolling view of scene via device movement -->
+<script src="js/DeviceOrientationControls.js"></script>
+
+<!-- DeviceOrientationControls.js used for condrolling view of scene via device movement -->
+<script src="js/jquery-3.3.1.min.js"></script>
+
+<!-- Tween.min.js handles most of the motion performed in the App -->
+<script src="js/tweenjs.min.js"></script>
+
+<!-- ARDraw.js is the main code containing AR script and content -->
+<script src="ARDraw.js"></script>
+
+<!-- <script src="js/lightTracker.js"></script> -->
 
 
-
-  <body>
-    <div class="video-container">
-      <video id="video" preload autoplay loop muted></video>
-    </div>
-  </body>
-
-  <!-- Three.js library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/98/three.js"></script>
-
-  <!-- AR.js library -->
-  <script src="js/ar.js"></script>
-
-  <!-- Object Loader -->
-  <script src="js/OBJLoader.js"></script>
-
-  <!-- Material Loader -->
-  <script src="js/MTLLoader.js"></script>
-
-  <!-- Tracking.js library for drawing from led input-->
-  <script src="js/tracking.js"></script>
-
-  <!-- OrbitControls.js used for controlling view of scene via touch/click-->
-  <script src="js/OrbitControls.js"></script>
-
-  <!-- DeviceOrientationControls.js used for condrolling view of scene via device movement -->
-  <script src="js/DeviceOrientationControls.js"></script>
-
-  <!-- ARDraw.js is the main code containing AR script and content -->
-  <script src="ARDraw.js"></script>
 
 </html>
