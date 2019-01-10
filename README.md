@@ -26,3 +26,5 @@ After agreeing to let Firefly Farm use your camera, you...
  ![Image 2](/Resources/Firefly2.PNG)
  ![Image 3](/Resources/Firefly3.PNG)
  ![Image 4](/Resources/Firefly4.PNG)
+
+Github: https://github.com/JakeDWarren/Firefly-Farm
