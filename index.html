@@ -1,41 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>ARDraw</title>
+  <title>Firefly Farm</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <div class="video-container">
-    <!-- <video id="video" preload autoplay loop muted playsinline></video> -->
-    <!-- <video id="videos" preload autoplay loop muted playsinline></video> -->
+  <div id="splashScreen" class="splashScreen">
+    <br><n/>
+    <img src="Resources/FireflyFarm.png"/>
+    <p>Using the fire button, kill as many fireflies as you can and level up (Careful though,if you miss another firefly will be created). This immersive application will require access to your device's camera (Thanks for accepting).This application is best played on iphone in IOS Safari. Place the ar marker below on a surface to add to the experience(although not necessery).<p>
+    <br><n/>
+    <img src="Resources/ARMarker.png" height=100px width=
+  100px />
+    <button id="splashButton">Play Firefly Farm</button>
   </div>
-  <div class="level">
-    <p id="level"></p>
+
+  <div class="infoBarContainer">
+  <div class="infoBar">
+    <div class="flex"><p id="fliesKilled"></p></div>
+    <div class="flex"><p id="level"></p></div>
+    <div class="flex"><p id="fliesLeft"></p></div>
   </div>
-  <div>
-    <button id="fire">Fire</button>
-    <button id="reset">Reset</button>
   </div>
+
+  <div id="levelUp" class="levelUp">
+    <ul style="padding:0">
+    <p style="font-size:6rem"><b>LEVEL UP</b></p>
+    <p style="font-size:3rem">+5 Fireflies</p>
+  </ul>
+  </div>
+
+  <div class="buttonContainer">
+    <button class="fire" id="fire">Fire</button>
+    <button class="reset" id="reset">Reset</button>
+  </div>
+
   <div class="dot-container">
     <span class="dot"></span>
   </div>
+
 </body>
-
-<!-- Three.js library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/98/three.js"></script>
-
-<!-- Scipt to normalise refernces to getUserMedia across browsers -->
-<!-- <script>
-window.onload = function() {
-navigator.getUserMedia = (navigator.getUserMedia ||
-navigator.webkitGetUserMedia ||
-navigator.mozGetUserMedia ||
-navigator.msGetUserMedia);
-}
-</script> -->
 
 <!-- ---------------- Custom Shader Code ------------------------ -->
 <script id="vertexShader" type="x-shader/x-vertex">
@@ -58,6 +65,12 @@ void main()
 </script>
 <!-- ----------------------------------------------------------- -->
 
+<!-- Three.js library -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/98/three.js"></script> -->
+
+<!-- Three.js library stored with file -->
+<script src="js/three.min.js"></script>
+
 <!-- AR.js library -->
 <script src="js/ar.js"></script>
 
@@ -76,17 +89,10 @@ void main()
 <!-- DeviceOrientationControls.js used for condrolling view of scene via device movement -->
 <script src="js/DeviceOrientationControls.js"></script>
 
-<!-- DeviceOrientationControls.js used for condrolling view of scene via device movement -->
-<script src="js/jquery-3.3.1.min.js"></script>
-
-<!-- Tween.min.js handles most of the motion performed in the App -->
-<script src="js/tweenjs.min.js"></script>
+<!-- TweenMax.min.js handles most of the motion performed in the App -->
+<script src="js/Tween.js"></script>
 
 <!-- ARDraw.js is the main code containing AR script and content -->
-<script src="ARDraw.js"></script>
-
-<!-- <script src="js/lightTracker.js"></script> -->
-
-
+<script src="FireflyFarm.js"></script>
 
 </html>

@@ -3,51 +3,192 @@ html,body {
   margin: 0;
   height: 100%;
   width: 100%;
-  z-index: 5;
+  touch-action: manipulation;
+  font-family: sans-serif;
 }
 
 canvas{
-  position:fixed;
+  position: fixed;
   width: inherit;
   height: inherit;
 }
 
 p{
-  margin: 0;
-}
-
-.level{
-  background-color: #555555;
-  color: #f44336;
-  font-size: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 1px;
+  margin-bottom: 1px;
   text-align: center;
 }
 
-#fire{
-  position: fixed;
-  background-color: #555555;
-  color: #f44336;
-  bottom: 0;
-  right: 0;
-  font-size: 20px;
-  z-index: 5;
-  width: 100px;
-  height: 40px;
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  position: relative;
+  /*overflow: hidden;*/
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
-#reset{
+.splashScreen{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  text-align: center;
+  min-height: 100%;
+  width:100%;
+  height:auto;
+  color: white;
+  background-image: url("Resources/Background.jpg");
+  z-index: 8;
+  transition: opacity 2s;
+  transition-timing-function: ease-out;
+}
+
+.splashScreen p{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.splashBack{
+  opacity: 0;
+  z-index: 0;
+}
+
+#splashButton{
+  margin-top: 20px;
+  margin-bottom: 20px;
+color: #fff;
+text-transform: uppercase;
+background: #d42f43;
+padding: 20px;
+border-radius: 5px;
+display: inline-block;
+border: none;
+}
+
+#splashButton:hover{
+  background: #434343;
+letter-spacing: 1px;
+-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+transition: all 0.4s ease 0s;
+}
+
+.flex{
+  display:flex;
+}
+
+.infoBar{
   position: fixed;
-  background-color: #555555;
-  color: #f44336;
-  bottom: 0;
-  left: 0;
+  display: flex;
+  background-color: #f7f7f7;
+  color: #d42f43;
   font-size: 20px;
-  z-index: 5;
-  width: 100px;
+  min-width: 95%;
+  z-index: 0;
+  justify-content: space-between;
+  border-radius: 5px;;
+  margin: 10px 0  0 0;
+  padding: 3px 3px 3px 3px;
+}
+
+.infoBarContainer{
+  position:fixed;
+  display: flex;
+  top:0
+  left:0;
+  width: 100%;
+  height: 10%;
+  padding: 0 0 0 0;
+  justify-content: center;
+  z-index: 1;
+}
+
+.levelUp{
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  text-shadow: 2px 2px #d42f43;;
+  opacity: 0;
+  top:0;
+  left:0;
+  transition: opacity 2s;
+  transition-timing-function: ease-out;
+}
+
+.opacity{
+  opacity: 1;
+  transition: opacity 2s;
+  transition-timing-function: ease-in-out;
+}
+
+.fire{
+  position: fixed;
+  bottom:0;
+  font-size: 20px;
+  z-index: 2;
+  border-style:none;
+  margin: 10px 10px;
+  display: flex;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  overflow: hidden;
+  touch-action: manipulation;
+  background-color: #f7f7f7;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#e7e7e7));
+  background-image: -webkit-linear-gradient(top, #f7f7f7, #e7e7e7);
+  background-image: -moz-linear-gradient(top, #f7f7f7, #e7e7e7);
+  background-image: -ms-linear-gradient(top, #f7f7f7, #e7e7e7);
+  background-image: -o-linear-gradient(top, #f7f7f7, #e7e7e7);
+  color: #d42f43;
+  box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.reset{
+  position: fixed;
+  border-style:none;
+  bottom:0;
+  left: 0;
+  font-size: 12px;
+  z-index: 2;
+  margin: 10px 10px;
+  display: flex;
+  justify-content: center;
+  width: 40px;
   height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  touch-action: manipulation;
+  background-color: #f7f7f7;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#e7e7e7));
+  background-image: -webkit-linear-gradient(top, #f7f7f7, #e7e7e7);
+  background-image: -moz-linear-gradient(top, #f7f7f7, #e7e7e7);
+  background-image: -ms-linear-gradient(top, #f7f7f7, #e7e7e7);
+  background-image: -o-linear-gradient(top, #f7f7f7, #e7e7e7);
+  color: #a7a7a7;
+  box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
 }
 
 .dot{
+position: fixed;
 height: 10px;
 width: 10px;
 border: 2px solid #fff;
@@ -55,14 +196,17 @@ border-radius: 50%;
 display: flex;
 justify-content: center;
 align-items: center;
+
 }
 
 .dot-container{
   position: fixed;
   display: flex;
+  top:0;
+  left:0;
   height: 100%;
   width: 100%;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 0;
 }

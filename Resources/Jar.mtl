@@ -1,0 +1,70 @@
+newmtl Bush01SG
+illum 4
+Kd 0.45 0.80 0.14
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 7.61
+newmtl BushBerry01SG
+illum 4
+Kd 0.80 0.06 0.08
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 7.61
+newmtl initialShadingGroup
+illum 4
+Kd 0.14 0.05 0.03
+Ka 0.10 0.10 0.10
+Tf 1.00 1.00 1.00
+Ni 0.38
+newmtl pasted__Bush01SG
+illum 4
+Kd 0.45 0.80 0.14
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 7.61
+newmtl pasted__BushBerry01SG
+illum 4
+Kd 0.80 0.06 0.08
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 7.61
+newmtl pasted__pasted__Bush01SG
+illum 4
+Kd 0.45 0.80 0.14
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 7.61
+newmtl pasted__pasted__BushBerry01SG
+illum 4
+Kd 0.80 0.06 0.08
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 7.61
+newmtl tree03SG
+illum 4
+Kd 0.27 0.13 0.04
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 7.61
+newmtl tree03SG1
+illum 4
+Kd 0.47 0.80 0.04
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 7.61
