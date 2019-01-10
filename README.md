@@ -22,7 +22,7 @@ After agreeing to let Firefly Farm use your camera, you...
 
  ## What it looks like...
 
- ![Image 1](/Resources/Firefly1.png)
- ![Image 2](/Resources/Firefly2.png)
- ![Image 3](/Resources/Firefly3.png)
- ![Image 4](/Resources/Firefly4.png)
+ ![Image 1](/Resources/Firefly1.PNG)
+ ![Image 2](/Resources/Firefly2.PNG)
+ ![Image 3](/Resources/Firefly3.PNG)
+ ![Image 4](/Resources/Firefly4.PNG)
